@@ -8,7 +8,9 @@ namespace TeamCalculatorApp
         static void Main(string[] args)
         {
             Console.WriteLine("=== Team Calculator App ===");
-            Console.WriteLine("Select Operation: +  -  *  /");
+            Console.WriteLine("Select Operation: +  -  *  /  ^");
+            Console.WriteLine("(Hint: ^ is for Power)");
+
             char operation = Convert.ToChar(Console.ReadLine());
 
             Console.Write("Enter first number: ");
@@ -33,9 +35,12 @@ namespace TeamCalculatorApp
                 case '/':
                     result = Division.Divide(num1, num2);
                     break;
+                case '^':
+                    result = Power.Calculate(num1, num2);
+                    break;
                 default:
                     Console.WriteLine("Invalid operation!");
-                    break;
+                    return;
             }
 
             Console.WriteLine($"\nResult: {num1} {operation} {num2} = {result}");
