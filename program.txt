@@ -1,0 +1,107 @@
+using System;
+
+namespace TeamCalculatorApp
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("=== Team Calculator App ===");
+            Console.WriteLine("--- Developed collaboratively by the Team ---\n");
+
+            while (true)
+            {
+                Console.WriteLine("Select Operation: +  -  *  /  %  or Q to Quit");
+                Console.Write("Enter your choice: ");
+                string input = Console.ReadLine().Trim();
+
+                // Exit condition
+                if (input.Equals("Q", StringComparison.OrdinalIgnoreCase))
+                {
+                    Console.WriteLine("\nThank you for using Team Calculator App!");
+                    break;
+                }
+
+                // Validate operator input
+                if (input.Length != 1 || "+-*/%".IndexOf(input[0]) == -1)
+                {
+                    Console.WriteLine("Invalid operation! Please select one of +, -, *, /, %.\n");
+                    continue;
+                }
+
+                char operation = input[0];
+
+                Console.Write("Enter first number: ");
+                if (!double.TryParse(Console.ReadLine(), out double num1))
+                {
+                    Console.WriteLine("Invalid input for first number.\n");
+                    continue;
+                }
+
+                Console.Write("Enter second number: ");
+                if (!double.TryParse(Console.ReadLine(), out double num2))
+                {
+                    Console.WriteLine("Invalid input for second number.\n");
+                    continue;
+                }
+
+                double result = 0;
+                bool validOperation = true;
+
+                switch (operation)
+                {
+                    case '+':
+                        result = Add(num1, num2);
+                        break;
+
+                    case '-':
+                        result = Subtract(num1, num2);
+                        break;
+
+                    case '*':
+                        result = Multiply(num1, num2);
+                        break;
+
+                    case '/':
+                        if (num2 == 0)
+                        {
+                            Console.WriteLine("Error: Division by zero is not allowed!");
+                            validOperation = false;
+                        }
+                        else
+                        {
+                            result = Divide(num1, num2);
+                        }
+                        break;
+
+                    case '%':
+                        if (num2 == 0)
+                        {
+                            Console.WriteLine("Error: Modulus by zero is not allowed!");
+                            validOperation = false;
+                        }
+                        else
+                        {
+                            result = Modulus(num1, num2);
+                        }
+                        break;
+                }
+
+                if (validOperation)
+                {
+                    Console.WriteLine($"\nResult: {num1} {operation} {num2} = {result}");
+                    Console.WriteLine($"Operation performed at: {DateTime.Now}\n");
+                }
+
+                Console.WriteLine("--------------------------------------------\n");
+            }
+        }
+
+        // All operations in one file
+        static double Add(double a, double b) => a + b;
+        static double Subtract(double a, double b) => a - b;
+        static double Multiply(double a, double b) => a * b;
+        static double Divide(double a, double b) => a / b;
+        static double Modulus(double a, double b) => a % b;
+    }
+}
